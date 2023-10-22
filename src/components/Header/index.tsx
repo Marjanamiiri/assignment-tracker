@@ -4,15 +4,24 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { uppercase } from "../../helpers/stringHelpers";
 
 type Props = {
-  inputText: string;
+
   onClickInput: () => void;
-  onClickButton: () => void;
+  onCreateAssignment: (newAssignment: any) => void;
 }
 
-export function Header({ onClickInput, onClickButton, inputText }: Props) {
-  const [inputValue, setInputValue] = useState(inputText);
+export function Header({ onClickInput, onCreateAssignment }: Props) {
+  const [inputValue, setInputValue] = useState('');
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(event.target.value);
+  };
+
+  const handleCreateAssignment = () => {
+    if (inputValue.trim() !== '') {
+      // Call the function passed from the parent component to create a new assignment
+      onCreateAssignment(inputValue);
+      setInputValue(''); // Clear the input field
+    }
   };
 
   return (
@@ -27,7 +36,7 @@ export function Header({ onClickInput, onClickButton, inputText }: Props) {
           onClick={onClickInput}
           onChange={handleInputChange}
         />
-        <button onClick={onClickButton} disabled={!inputValue.trim().length}>
+        <button onClick={handleCreateAssignment} disabled={!inputValue.trim().length}>
           Create <AiOutlinePlusCircle size={20} />
         </button>
       </form>

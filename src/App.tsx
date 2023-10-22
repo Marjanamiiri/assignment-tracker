@@ -1,20 +1,22 @@
 import { Header } from "./components/Header";
 import { Assignments } from "./components/Assignments";
-
+import React, { useState } from 'react';
 function App() {
-  const onClickButton = () => {
-    // Define the behavior when the "Create" button is clicked
-    // You can implement your logic here
+  // const onClickButton = (inputValue: any) => {
+  //   console.log("Input value:", inputValue);
+  //   // Implement your logic here to further process the input value
+  // };
+  const [assignments, setAssignments] = useState([]);
+
+  // Function to create a new assignment and add it to the list
+  const createAssignment = (newAssignment: any) => {
+    setAssignments([...assignments, newAssignment]);
   };
 
-  const onClickInput = () => {
-    // Define the behavior when the input field is clicked
-    // You can implement your logic here
-  };
   return (
     <>
-      <Header inputText="" onClickButton={onClickButton} onClickInput={onClickInput}/>
-      <Assignments />
+      <Header onClickInput={() => {}} onCreateAssignment={createAssignment} />
+      <Assignments assignments={assignments} />
     </>
   );
 }
