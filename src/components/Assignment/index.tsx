@@ -3,21 +3,21 @@ import { TbTrash } from "react-icons/tb";
 
 type Props = {
   title: string;
-  onClickConatanier: () => void;
-  onDeleteButton: () => void;
+  completed: boolean;
+  onDeleteButton: (text: string) => void;
+  onCompleteButton: (text: string) => void;
 }
-export function Assignment({ title, onClickConatanier, onDeleteButton }: Props) {
+
+export function Assignment({ title, completed, onDeleteButton, onCompleteButton }: Props) {
   return (
     <div className={styles.assignment}>
-      <button className={styles.checkContainer}
-              onClick={onClickConatanier}>
-        <div />
+      <button className={styles.checkContainer} onClick={() => onCompleteButton(title)}>
+        {completed ? <div className={styles.completedCheck} /> : null}
       </button>
 
-      <p>{title}</p>
+      <p className={completed ? styles.completed : ''}>{title}</p>
 
-      <button className={styles.deleteButton}
-              onClick={onDeleteButton}>
+      <button className={styles.deleteButton} onClick={() => onDeleteButton(title)}>
         <TbTrash size={20} />
       </button>
     </div>

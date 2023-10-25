@@ -3,26 +3,12 @@ import { Assignment } from "../Assignment";
 import styles from "./assignments.module.css";
 
 type Props = {
-  assignments: string[];
+  assignments: { title: string; completed: boolean }[];
+  onDeleteAssignment: (text: string) => void;
+  onCompleteAssignment: (text: string) => void;
 }
 
-export function Assignments({ assignments }: Props) {
-  const [hiddenAssignments, setHiddenAssignments] = useState<boolean[]>(Array(assignments.length).fill(false));
-
-  const onClickConatanier = (index: number) => {
-    // Toggle the checked status of the assignment by index
-    const newHiddenAssignments = [...hiddenAssignments];
-    newHiddenAssignments[index] = !newHiddenAssignments[index];
-    setHiddenAssignments(newHiddenAssignments);
-  };
-
-  const onDeleteButton = (index: number) => {
-    // Hide the assignment by index
-    const newHiddenAssignments = [...hiddenAssignments];
-    newHiddenAssignments[index] = true;
-    setHiddenAssignments(newHiddenAssignments);
-  };
-
+export function Assignments({ assignments, onDeleteAssignment, onCompleteAssignment }: Props) {
   return (
     <section className={styles.assignments}>
       <header className={styles.header}>
@@ -33,7 +19,7 @@ export function Assignments({ assignments }: Props) {
 
         <div>
           <p className={styles.textPurple}>Completed Assignments</p>
-          <span>{} of {assignments.length}</span>
+          <span>{assignments.filter((assignment) => assignment.completed).length} of {assignments.length}</span>
         </div>
       </header>
 
@@ -41,10 +27,10 @@ export function Assignments({ assignments }: Props) {
         {assignments.map((assignment, index) => (
           <Assignment
             key={index}
-            title={assignment}
-            onClickConatanier={() => onClickConatanier(index)}
-            onDeleteButton={() => onDeleteButton(index)}
-            
+            title={assignment.title}
+            completed={assignment.completed}
+            onDeleteButton={onDeleteAssignment}
+            onCompleteButton={onCompleteAssignment}
           />
         ))}
       </div>
