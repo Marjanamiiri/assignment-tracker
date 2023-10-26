@@ -12,10 +12,12 @@ export function Assignment({ title, completed, onDeleteButton, onCompleteButton 
   return (
     <div className={styles.assignment}>
       <button className={styles.checkContainer} onClick={() => onCompleteButton(title)}>
-        {completed ? <div className={styles.completedCheck} /> : null}
+        <div className={styles.checkContainer}>
+        {completed ? <div className={styles.checkContainerCompleted} /> : null}
+          </div>
       </button>
 
-      <p className={completed ? styles.completed : ''}>{title}</p>
+      <p className={completed ? styles.textCompleted : ''}>{title}</p>
 
       <button className={styles.deleteButton} onClick={() => onDeleteButton(title)}>
         <TbTrash size={20} />
