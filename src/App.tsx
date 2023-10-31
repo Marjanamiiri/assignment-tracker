@@ -1,13 +1,13 @@
+import React, { useState } from 'react';
 import { Header } from "./components/Header";
 import { Assignments } from "./components/Assignments";
-import { useState } from 'react';
 
 function App() {
   const [assignments, setAssignments] = useState([]);
 
-  // Function to create a new assignment and add it to the list
+  // Function to create a new assignment with a deadline and add it to the list
   const createAssignment = (newAssignment) => {
-    setAssignments([...assignments, { title: newAssignment, completed: false }]);
+    setAssignments([...assignments, newAssignment]);
   };
 
   // Function to delete an assignment

@@ -6,19 +6,34 @@ type Props = {
   completed: boolean;
   onDeleteButton: (text: string) => void;
   onCompleteButton: (text: string) => void;
-}
+  deadline: Date; // Add the deadline prop
+};
 
-export function Assignment({ title, completed, onDeleteButton, onCompleteButton }: Props) {
+export function Assignment({ title, completed, onDeleteButton, onCompleteButton, deadline }: Props) {
+  // Calculate days remaining until the deadline
+  const today = new Date();
+  const diffInDays = Math.ceil((deadline - today) / (1000 * 60 * 60 * 24));
+  
+  // Determine the bubble class based on the remaining days
+  let bubbleClass = styles.bubble;
+  if (diffInDays === 1) {
+    bubbleClass += ` ${styles.oneDayAway}`;
+  }
+
   return (
     <div className={styles.assignment}>
       <button className={styles.checkContainer} onClick={() => onCompleteButton(title)}>
         <div className={styles.checkContainer}>
-        {completed ? <div className={styles.checkContainerCompleted} /> : null}
-          </div>
+          {completed ? <div className={styles.checkContainerCompleted} /> : null}
+        </div>
       </button>
 
       <p className={completed ? styles.textCompleted : ''}>{title}</p>
 
+      <span className={bubbleClass}>
+        {diffInDays === 1 ? 'Tomorrow' : `${diffInDays} days`}
+      </span>
+      
       <button className={styles.deleteButton} onClick={() => onDeleteButton(title)}>
         <TbTrash size={20} />
       </button>

@@ -2,7 +2,7 @@ import { Assignment } from "../Assignment";
 import styles from "./assignments.module.css";
 
 type Props = {
-  assignments: { title: string; completed: boolean }[];
+  assignments: { title: string; completed: boolean; deadline: Date}[];
   onDeleteAssignment: (text: string) => void;
   onCompleteAssignment: (text: string) => void;
 }
@@ -30,6 +30,7 @@ export function Assignments({ assignments, onDeleteAssignment, onCompleteAssignm
             completed={assignment.completed}
             onDeleteButton={onDeleteAssignment}
             onCompleteButton={onCompleteAssignment}
+            deadline={assignment.deadline}
           />
         ))}
       </div>
