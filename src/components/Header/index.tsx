@@ -1,11 +1,9 @@
 import styles from "./header.module.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { uppercase } from "../../helpers/stringHelpers";
-import { format } from 'date-fns';
 import { useState } from "react";
 import DatePicker from "react-datepicker";
- // Import the DatePicker component
-import "react-datepicker/dist/react-datepicker.css"; // Import the DatePicker styles
+import "react-datepicker/dist/react-datepicker.css";
 
 type Props = {
   onClickInput: () => void;
